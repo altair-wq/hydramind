@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 210 30% 98%;
+    --foreground: 215 25% 12%;
+
+    --card: 210 40% 99%;
+    --card-foreground: 215 25% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 12%;
+
+    --primary: 207 90% 54%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 30% 95%;
+    --secondary-foreground: 215 25% 20%;
+
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 12% 50%;
+
+    --accent: 199 89% 48%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 25% 91%;
+    --input: 210 25% 91%;
+    --ring: 207 90% 54%;
+
+    --radius: 0.875rem;
+
+    /* Custom HydraMind tokens */
+    --hydra-blue-50: 207 100% 97%;
+    --hydra-blue-100: 207 96% 90%;
+    --hydra-blue-200: 207 94% 80%;
+    --hydra-blue-300: 207 92% 68%;
+    --hydra-blue-400: 207 90% 54%;
+    --hydra-blue-500: 207 85% 46%;
+    --hydra-blue-600: 210 80% 38%;
+
+    --hydra-cyan: 187 85% 53%;
+    --hydra-teal: 172 66% 50%;
+
+    --hydra-success: 152 69% 46%;
+    --hydra-warning: 38 92% 50%;
+    --hydra-danger: 0 72% 51%;
+
+    --hydra-glass: 210 40% 98% / 0.7;
+    --hydra-glass-border: 210 40% 90% / 0.5;
+
+    --gradient-primary: linear-gradient(135deg, hsl(207 90% 54%), hsl(187 85% 53%));
+    --gradient-hero: linear-gradient(160deg, hsl(210 30% 98%), hsl(207 100% 97%), hsl(207 96% 92%));
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(210 40% 99%));
+
+    --shadow-soft: 0 2px 15px -3px hsl(207 90% 54% / 0.08), 0 4px 6px -4px hsl(207 90% 54% / 0.05);
+    --shadow-elevated: 0 10px 40px -10px hsl(207 90% 54% / 0.15), 0 4px 12px -4px hsl(207 90% 54% / 0.08);
+    --shadow-glow: 0 0 30px -5px hsl(207 90% 54% / 0.25);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', 'DM Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-xl border border-border/50 rounded-2xl;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .glass-card-elevated {
+    @apply bg-card/90 backdrop-blur-xl border border-border/50 rounded-2xl;
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hydra-glow {
+    box-shadow: var(--shadow-glow);
+  }
+}
