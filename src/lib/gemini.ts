@@ -26,7 +26,7 @@ export async function analyzeHydrationProfile(
 You are a health and hydration expert AI. Based on the following user profile, analyze their hydration needs:
 Weight: ${profile.weight} kg
 Activity Level: ${profile.activityLevel}
-Climate: ${profile.climate}
+City/Location: ${profile.city} (Consider the current time of year and typical weather/climate for this location right now)
 Primary Goal: ${profile.goal}
 
 Provide a JSON response with the following format exactly (do not wrap it in markdown codeblocks like \`\`\`json):
@@ -80,7 +80,7 @@ export async function askHydrationBot(
 
   const systemContext = profile
     ? `You are a helpful, empathetic hydration and wellness AI assistant. 
-       The user's profile: Weight ${profile.weight}kg, Activity: ${profile.activityLevel}, Climate: ${profile.climate}, Goal: ${profile.goal}.
+       The user's profile: Weight ${profile.weight}kg, Activity: ${profile.activityLevel}, Location: ${profile.city}, Goal: ${profile.goal}.
        Keep your answers concise (1-3 sentences max), encouraging, and focused on hydration and health.`
     : `You are a helpful, empathetic hydration and wellness AI assistant. Keep your answers concise (1-3 sentences max), encouraging, and focused on hydration and health.`;
 

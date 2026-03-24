@@ -9,7 +9,7 @@ export interface WaterLog {
 export interface UserProfile {
   weight: number;
   activityLevel: 'low' | 'medium' | 'high';
-  climate: 'cold' | 'moderate' | 'hot';
+  city: string;
   goal: 'skin' | 'energy' | 'fitness' | 'health';
   dailyTarget: number;
   aiRationale?: string;
@@ -128,11 +128,11 @@ export const useHydrationStore = create<HydrationState>((set, get) => ({
   },
 }));
 
-export function calculateDailyTarget(weight: number, activity: string, climate: string): number {
+export function calculateDailyTarget(weight: number, activity: string, city: string): number {
   let base = weight * 33; // ml per kg base
   if (activity === 'medium') base *= 1.2;
   if (activity === 'high') base *= 1.5;
-  if (climate === 'moderate') base *= 1.1;
-  if (climate === 'hot') base *= 1.3;
+  // A moderate backup modifier if API is unavailable
+  base *= 1.1;
   return Math.round(base / 100) * 100; // round to nearest 100ml
 }

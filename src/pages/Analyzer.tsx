@@ -14,7 +14,7 @@ const Analyzer = () => {
 
   const [weight, setWeight] = useState(70);
   const [activity, setActivity] = useState<'low' | 'medium' | 'high'>('medium');
-  const [climate, setClimate] = useState<'cold' | 'moderate' | 'hot'>('moderate');
+  const [city, setCity] = useState('');
   const [goal, setGoal] = useState<'skin' | 'energy' | 'fitness' | 'health'>('health');
 
   const handleSubmit = async () => {
@@ -23,13 +23,13 @@ const Analyzer = () => {
       const { dailyTarget, rationale, insights } = await analyzeHydrationProfile({
         weight,
         activityLevel: activity,
-        climate,
+        city,
         goal,
       });
       const profile: UserProfile = { 
         weight, 
         activityLevel: activity, 
-        climate, 
+        city, 
         goal, 
         dailyTarget,
         aiRationale: rationale,
@@ -40,11 +40,11 @@ const Analyzer = () => {
     } catch (e) {
       console.error(e);
       // Fallback if no API key or error
-      const target = calculateDailyTarget(weight, activity, climate);
+      const target = calculateDailyTarget(weight, activity, city);
       const profile: UserProfile = { 
         weight, 
         activityLevel: activity, 
-        climate, 
+        city, 
         goal, 
         dailyTarget: target,
         aiRationale: 'Standard calculation used. Add your Gemini API key for personalized insights.'
@@ -120,18 +120,18 @@ const Analyzer = () => {
                 </div>
               </div>
 
-              {/* Climate */}
+              {/* City */}
               <div className="glass-card p-5">
                 <label className="flex items-center gap-2 text-sm font-semibold text-foreground mb-3">
-                  <Thermometer className="w-4 h-4 text-primary" /> Climate
+                  <Thermometer className="w-4 h-4 text-primary" /> City / Location
                 </label>
-                <div className="grid grid-cols-3 gap-2">
-                  {(['cold', 'moderate', 'hot'] as const).map((c) => (
-                    <button key={c} onClick={() => setClimate(c)} className={optionBtn(climate === c)}>
-                      {c.charAt(0).toUpperCase() + c.slice(1)}
-                    </button>
-                  ))}
-                </div>
+                <input
+                  type="text"
+                  placeholder="e.g. Astana, Tokyo, New York"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  className="w-full bg-secondary text-foreground text-sm rounded-xl px-4 py-3 placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-medium"
+                />
               </div>
 
               {/* Goal */}
@@ -152,7 +152,7 @@ const Analyzer = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleSubmit}
-                disabled={isAnalyzing}
+                disabled={isAnalyzing || !city.trim()}
                 className="w-full flex items-center justify-center gap-2 gradient-primary text-primary-foreground font-semibold py-3.5 rounded-xl hydra-glow disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {isAnalyzing ? (
@@ -195,8 +195,8 @@ const Analyzer = () => {
                   <p className="font-semibold text-foreground capitalize">{result?.activityLevel}</p>
                 </div>
                 <div className="bg-secondary rounded-xl p-3">
-                  <p className="text-xs text-muted-foreground">Climate</p>
-                  <p className="font-semibold text-foreground capitalize">{result?.climate}</p>
+                  <p className="text-xs text-muted-foreground">City</p>
+                  <p className="font-semibold text-foreground capitalize overflow-hidden text-ellipsis whitespace-nowrap">{result?.city}</p>
                 </div>
                 <div className="bg-secondary rounded-xl p-3">
                   <p className="text-xs text-muted-foreground">Goal</p>
